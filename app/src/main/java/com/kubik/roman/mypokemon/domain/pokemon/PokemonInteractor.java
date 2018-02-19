@@ -10,13 +10,21 @@ import io.reactivex.Single;
 
 public class PokemonInteractor {
 
-    private PokemonRepository pokemonRepository;
+    private LocalPokemonRepository localPokemonRepository;
+    private RemotePokemonRepository remotePokemonRepository;
 
-    public PokemonInteractor(PokemonRepository pokemonRepository) {
-        this.pokemonRepository = pokemonRepository;
+    public PokemonInteractor(LocalPokemonRepository localPokemonRepository, RemotePokemonRepository remotePokemonRepository) {
+        this.localPokemonRepository = localPokemonRepository;
+        this.remotePokemonRepository = remotePokemonRepository;
     }
 
-    public Single<List<Pokemon>> getAll() {
-        return pokemonRepository.getAll();
+    public Single<List<Pokemon>> getAll(boolean forceUpdate) {
+        if (forceUpdate) {
+            return localPokemonRepository.deleteAll()
+                    .andThen(remotePokemonRepository.getAll())
+                    .flatMap(r -> localPokemonRepository.insertAll(r)
+                            .andThen(localPokemonRepository.getAll()));
+        }
+        return localPokemonRepository.getAll();
     }
 }

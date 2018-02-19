@@ -5,10 +5,12 @@ import java.util.List;
 import io.reactivex.Single;
 
 /**
- * Created by kubik on 2/18/18.
+ * Created by kubik on 2/20/18.
  */
 
-public interface PokemonRepository {
+public interface RemotePokemonRepository {
 
     Single<List<Pokemon>> getAll();
+
+
 }
