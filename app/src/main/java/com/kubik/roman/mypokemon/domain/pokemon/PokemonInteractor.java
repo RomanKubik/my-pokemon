@@ -2,6 +2,7 @@ package com.kubik.roman.mypokemon.domain.pokemon;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -21,10 +22,15 @@ public class PokemonInteractor {
     public Single<List<Pokemon>> getAll(boolean forceUpdate) {
         if (forceUpdate) {
             return localPokemonRepository.deleteAll()
-                    .andThen(remotePokemonRepository.getAll())
-                    .flatMap(r -> localPokemonRepository.insertAll(r)
-                            .andThen(localPokemonRepository.getAll()));
+                    .andThen(fetchFromRemote());
         }
-        return localPokemonRepository.getAll();
+        return localPokemonRepository.getAll()
+                .flatMap(l -> l.isEmpty() ? fetchFromRemote() : Single.fromObservable(Observable.just(l)));
+    }
+
+    private Single<List<Pokemon>> fetchFromRemote() {
+        return remotePokemonRepository.getAll()
+                .flatMap(r -> localPokemonRepository.insertAll(r)
+                        .andThen(localPokemonRepository.getAll()));
     }
 }

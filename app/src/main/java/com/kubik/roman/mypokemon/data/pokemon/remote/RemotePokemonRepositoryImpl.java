@@ -24,7 +24,7 @@ public class RemotePokemonRepositoryImpl implements RemotePokemonRepository {
 
     @Override
     public Single<List<Pokemon>> getAll() {
-        return pokemonApi.getPokemons()
+        return pokemonApi.getPokemons(Integer.MAX_VALUE)
                 .map(PokemonResponcePojo::getPokemons)
                 .map(this::mapPokemonPojos);
     }

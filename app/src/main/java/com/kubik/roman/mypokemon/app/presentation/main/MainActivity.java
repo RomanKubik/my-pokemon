@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
@@ -14,6 +17,7 @@ import com.kubik.roman.mypokemon.R;
 import com.kubik.roman.mypokemon.app.presentation.main.di.MainModule;
 import com.kubik.roman.mypokemon.domain.pokemon.Pokemon;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,13 +49,27 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         component.getMainComponent(new MainModule(this)).inject(this);
-        presenter.getPokemons(true);
+        presenter.getPokemons(false);
         initRecyclerView();
     }
 
-    private void initRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(pokemonAdapter);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                pokemonAdapter.setData(Collections.emptyList());
+                presenter.getPokemons(true);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -68,4 +86,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void showProgress(boolean show) {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(pokemonAdapter);
+    }
+
 }
