@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface PokemonApi {
 
-    @GET("/pokemon")
+    @GET("/api/v2/pokemon")
     Single<PokemonResponcePojo> getPokemons();
 
 }
