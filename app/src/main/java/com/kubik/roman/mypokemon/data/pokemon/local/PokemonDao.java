@@ -20,8 +20,8 @@ public interface PokemonDao {
     Single<List<PokemonEntity>> getAll();
 
     @Query("DELETE FROM pokemon")
-    Completable deleteAll();
+    void deleteAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Completable insertAll(List<PokemonEntity> pokemons);
+    void insertAll(List<PokemonEntity> pokemons);
 }

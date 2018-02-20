@@ -57,7 +57,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonH
 
         public PokemonHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         public void setPokemon(Pokemon pokemon) {

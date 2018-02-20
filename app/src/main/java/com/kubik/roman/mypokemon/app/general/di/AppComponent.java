@@ -13,7 +13,7 @@ import dagger.Component;
  * Created by kubik on 2/20/18.
  */
 @Singleton
-@Component(modules = AppModule.class)
+@Component(modules = {AppModule.class, ApiModule.class, DatabaseModule.class, InteractorModule.class})
 public interface AppComponent {
 
     Context getApplicationContex();

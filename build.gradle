@@ -31,6 +31,7 @@ ext {
     roomVersion = '1.0.0'
     daggerVersion = '2.11'
     butterknifeVersion = '8.8.1'
+    retrofitVersion = '2.3.0'
 }
 
 task clean(type: Delete) {
