@@ -6,7 +6,6 @@ import com.kubik.roman.mypokemon.domain.pokemon.RemotePokemonRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
