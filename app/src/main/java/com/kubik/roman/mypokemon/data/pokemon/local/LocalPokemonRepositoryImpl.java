@@ -33,12 +33,12 @@ public class LocalPokemonRepositoryImpl implements LocalPokemonRepository {
 
     @Override
     public Completable insertAll(List<Pokemon> pokemonList) {
-        return pokemonDao.insertAll(mapPokemons(pokemonList));
+        return Completable.fromAction(() -> pokemonDao.insertAll(mapPokemons(pokemonList)));
     }
 
     @Override
     public Completable deleteAll() {
-        return pokemonDao.deleteAll();
+        return Completable.fromAction(() -> pokemonDao.deleteAll());
     }
 
     private List<Pokemon> mapPokemonEntities(List<PokemonEntity> pokemonEntities) {
