@@ -3,8 +3,10 @@ package com.kubik.roman.mypokemon.app.presentation.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Inject
     MainContract.Presenter presenter;
+    @Inject
+    PokemonAdapter pokemonAdapter;
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -42,11 +46,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         ButterKnife.bind(this);
         component.getMainComponent(new MainModule(this)).inject(this);
         presenter.getPokemons(false);
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(pokemonAdapter);
     }
 
     @Override
     public void onPokemonsFetched(List<Pokemon> pokemonList) {
-
+        pokemonAdapter.setData(pokemonList);
     }
 
     @Override

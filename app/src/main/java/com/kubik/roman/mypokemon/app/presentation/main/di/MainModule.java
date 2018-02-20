@@ -1,11 +1,10 @@
 package com.kubik.roman.mypokemon.app.presentation.main.di;
 
-import android.content.Context;
-
 import com.kubik.roman.mypokemon.app.general.di.ActivityScope;
 import com.kubik.roman.mypokemon.app.presentation.main.MainActivity;
 import com.kubik.roman.mypokemon.app.presentation.main.MainContract;
 import com.kubik.roman.mypokemon.app.presentation.main.MainPresenter;
+import com.kubik.roman.mypokemon.domain.pokemon.PokemonInteractor;
 
 import dagger.Module;
 import dagger.Provides;
@@ -30,7 +29,7 @@ public class MainModule {
 
     @Provides
     @ActivityScope
-    public MainContract.Presenter getPresenter() {
-        return new MainPresenter(activity);
+    public MainContract.Presenter getPresenter(PokemonInteractor pokemonInteractor) {
+        return new MainPresenter(activity, pokemonInteractor);
     }
 }
