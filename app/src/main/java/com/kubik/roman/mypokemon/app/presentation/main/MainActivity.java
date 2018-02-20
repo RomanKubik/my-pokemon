@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         component.getMainComponent(new MainModule(this)).inject(this);
-        presenter.getPokemons(true);
+        presenter.getPokemons(false);
         initRecyclerView();
     }
 
