@@ -31,6 +31,6 @@ public class MainModule {
     @Provides
     @ActivityScope
     public MainContract.Presenter getPresenter() {
-        return new MainPresenter();
+        return new MainPresenter(activity);
     }
 }
