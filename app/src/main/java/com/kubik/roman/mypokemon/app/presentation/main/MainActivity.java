@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.refresh:
-                pokemonAdapter.setData(Collections.emptyList());
+                pokemonAdapter.clear();
                 presenter.getPokemons(true);
                 return true;
             default:

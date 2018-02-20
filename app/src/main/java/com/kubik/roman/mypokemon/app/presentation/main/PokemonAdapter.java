@@ -44,6 +44,11 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonH
         return pokemonList.size();
     }
 
+    public void clear() {
+        this.pokemonList.clear();
+        notifyDataSetChanged();
+    }
+
     public void setData(List<Pokemon> pokemonList) {
         this.pokemonList.clear();
         this.pokemonList.addAll(pokemonList);
