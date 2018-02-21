@@ -20,5 +20,7 @@ public interface MainContract {
 
     interface Presenter {
         void getPokemons(boolean force);
+
+        void onDestroy();
     }
 }
