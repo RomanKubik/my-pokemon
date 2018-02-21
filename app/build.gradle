@@ -47,9 +47,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
 
     // Architecture components
-    implementation "android.arch.lifecycle:runtime:$rootProject.roomVersion"
-    implementation "android.arch.lifecycle:extensions:$rootProject.roomVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.roomVersion"
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
@@ -65,5 +62,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestImplementation 'org.mockito:mockito-core:2.7.7'
 }
