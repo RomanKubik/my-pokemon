@@ -1,12 +1,10 @@
 package com.kubik.roman.mypokemon.data.pokemon.local;
 
-import com.kubik.roman.mypokemon.data.pokemon.remote.PokemonPojo;
 import com.kubik.roman.mypokemon.domain.pokemon.LocalPokemonRepository;
 import com.kubik.roman.mypokemon.domain.pokemon.Pokemon;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;

@@ -1,5 +1,6 @@
 package com.kubik.roman.mypokemon.app.general.di;
 
+import com.kubik.roman.mypokemon.BuildConfig;
 import com.kubik.roman.mypokemon.data.pokemon.remote.PokemonApi;
 import com.kubik.roman.mypokemon.data.pokemon.remote.PokemonPojoMapper;
 import com.kubik.roman.mypokemon.data.pokemon.remote.RemotePokemonRepositoryImpl;
@@ -9,8 +10,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,17 +29,10 @@ public class ApiModule {
     @Provides
     @Singleton
     public Retrofit getRetrofit() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .baseUrl("http://pokeapi.co/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .build();
     }
 
