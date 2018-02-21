@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kubik.roman.mypokemon.R;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     ProgressBar progressBar;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.emptyState)
+    TextView emptyState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,15 +82,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void onPokemonsFetched(List<Pokemon> pokemonList) {
         pokemonAdapter.setData(pokemonList);
+        if (pokemonAdapter.getItemCount() == 0)
+            emptyState.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showError(String msg) {
+        if (pokemonAdapter.getItemCount() == 0)
+            emptyState.setVisibility(View.VISIBLE);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showProgress(boolean show) {
+        if (show)
+            emptyState.setVisibility(View.GONE);
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
