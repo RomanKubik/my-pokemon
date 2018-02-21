@@ -3,16 +3,12 @@ package com.kubik.roman.mypokemon.data.remote;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.kubik.roman.mypokemon.app.general.di.AppComponent;
-import com.kubik.roman.mypokemon.app.general.di.AppModule;
-import com.kubik.roman.mypokemon.app.general.di.DaggerAppComponent;
 import com.kubik.roman.mypokemon.data.pokemon.remote.PokemonPojoMapper;
 import com.kubik.roman.mypokemon.data.pokemon.remote.RemotePokemonRepositoryImpl;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 /**
@@ -22,9 +18,7 @@ import org.mockito.Mock;
 @RunWith(AndroidJUnit4.class)
 public class RemoteRepositoryTest {
 
-    @InjectMocks
     RemotePokemonRepositoryImpl remotePokemonRepository;
-    @InjectMocks
     PokemonPojoMapper pokemonPojoMapper;
 
     @Mock
