@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         component.getMainComponent(new MainModule(this)).inject(this);
-        initRecyclerView();
+        init();
         presenter.getPokemons(false);
     }
 
@@ -91,9 +91,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    private void initRecyclerView() {
+    private void init() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(pokemonAdapter);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.pokemos);
+        }
     }
 
 }
