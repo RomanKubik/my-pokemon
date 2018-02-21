@@ -9,15 +9,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kubik.roman.mypokemon.R;
 import com.kubik.roman.mypokemon.app.presentation.main.di.MainModule;
 import com.kubik.roman.mypokemon.domain.pokemon.Pokemon;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     ProgressBar progressBar;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.emptyState)
+    TextView emptyState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +50,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         component.getMainComponent(new MainModule(this)).inject(this);
+        init();
         presenter.getPokemons(false);
-        initRecyclerView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 
     @Override
@@ -75,21 +82,30 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void onPokemonsFetched(List<Pokemon> pokemonList) {
         pokemonAdapter.setData(pokemonList);
+        if (pokemonAdapter.getItemCount() == 0)
+            emptyState.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showError(String msg) {
+        if (pokemonAdapter.getItemCount() == 0)
+            emptyState.setVisibility(View.VISIBLE);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showProgress(boolean show) {
+        if (show)
+            emptyState.setVisibility(View.GONE);
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    private void initRecyclerView() {
+    private void init() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(pokemonAdapter);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.pokemos);
+        }
     }
 
 }
