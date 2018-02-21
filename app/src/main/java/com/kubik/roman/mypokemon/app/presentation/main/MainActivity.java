@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ import com.kubik.roman.mypokemon.R;
 import com.kubik.roman.mypokemon.app.presentation.main.di.MainModule;
 import com.kubik.roman.mypokemon.domain.pokemon.Pokemon;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         component.getMainComponent(new MainModule(this)).inject(this);
-        presenter.getPokemons(false);
         initRecyclerView();
+        presenter.getPokemons(false);
     }
 
     @Override
