@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Pokemon</string>
     <string name="pokemos">Pokemons</string>
+    <string name="err_empty_state">Couldn\'t fetch any data</string>
 </resources>
